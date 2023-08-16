@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 
 function Payment() {
     const initialFormData = {
-    firstName: '',
-    lastName: '',
-    phone:'',
-    gender:'',
+    name: '',
+    admnNo:'',
+    acdmYr:'',
+    amount:'',
+    remark:'',
+    fName:'',
+    mob:'',
     checkbox:'',
 
   };
@@ -36,7 +39,7 @@ function Payment() {
          Name:
           <input
             type="text"
-            name="firstName"
+            name="name"
             value={formData.fullName}
             onChange={handleChange}
           />
@@ -48,7 +51,7 @@ function Payment() {
           Admn No:
           <input
             type="text"
-            name="admn_no"
+            name="admnNo"
             value={formData.admnNo}
             onChange={handleChange}
           />
@@ -60,7 +63,7 @@ function Payment() {
           Academic Year:
           <input
           type="text"
-          name="acdm_yr"
+          name="acdmYr"
           value={formData.acdmYr}
           onChange={handleChange}
           />
@@ -115,7 +118,7 @@ function Payment() {
           Name:
           <input
           type="text"
-          name="name"
+          name="fName"
           value={formData.fullName}
           onChange={handleChange}
           />
