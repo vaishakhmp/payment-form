@@ -52,6 +52,7 @@ function Payment() {
         dateOfBirth:'',
         email:'',
         mobile:'',
+        paymentMode:'',
         checkBox:'',
   };
 
@@ -299,10 +300,10 @@ function Payment() {
         <br/>
 
         <div>
-          <List header="UPI" values={optionOne}/>
-          <List header="Online Banking" values={optionTwo}/>
-          <List header="Debit Card" values={optionThree}/>
-          <List header="Credit Card" values={optionFour}/>
+          <List header="UPI" values={optionOne}  handleChange={handleChange}  formData={formData}/>
+          <List header="Online Banking" values={optionTwo}  handleChange={handleChange}  formData={formData}/>
+          <List header="Debit Card" values={optionThree}  handleChange={handleChange}  formData={formData}/>
+          <List header="Credit Card" values={optionFour}  handleChange={handleChange}  formData={formData}/>
         </div>
 
         <label>
