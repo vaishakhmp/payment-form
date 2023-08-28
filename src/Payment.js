@@ -33,23 +33,36 @@
 //   };
 
 import React, { useState } from 'react';
+import List from './List'
 
 function Payment() {
 
     const initialFormData = {  
 
+        category:'',
+        examType:'',
+        semester:'',
+        branch:'',
         name: '',
-        admnNo:'',
-        acdmYr:'',
+        admissionNumber:'',
+        academicYear:'',
         amount:'',
         remark:'',
-        fName:'',
-        mob:'',
-        checkbox:'',
+        fullName:'',
+        dateOfBirth:'',
+        email:'',
+        mobile:'',
+        checkBox:'',
   };
+
+  const optionOne = ["Module:6", "Learn Time:6hrs"]
+  const optionTwo = ["Module:5", "Learn Time:7hrs"]
+  const optionThree = ["Module:6", "Learn Time:5hrs"]
+  const optionFour = ["Module:6", "Learn Time:6hrs"]
+
   const [formData, setFormData] = useState(initialFormData);
   const [savedId, setSavedId] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
 
     const handleChange = (event) => {
     const {name, value, type, checked } = event.target;
@@ -90,7 +103,7 @@ function Payment() {
       const response = await fetch(`http://localhost:5500/data?id=${savedId}`);
         const fetchedData = await response.json();
         setData(fetchedData);
-        console.log(fetchedData);
+        console.log(Object.entries(fetchedData));
      } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -101,11 +114,73 @@ function Payment() {
       <h1>Enter the academic details</h1>  
       <form onSubmit={handleSubmit}>
         <label>
+          Payment Category:
+          <select 
+          name="category"
+          value={formData.category}
+          onChange={handleChange}>
+            <option value="nil">--Select any Category--</option>
+            <option value="exam">Examination Fess</option>
+            <option value="admission">Admission Fees</option>
+            <option value="mess">Mess Fees</option>
+            <option value="sem">Semester Fees</option>
+            </select>
+        </label>
+        <br/>
+
+        <label>
+          Type of Exam:
+          <select
+          name="examType"
+          value={formData.examType}
+          onChange={handleChange}>
+            <option value="nil">--Select Exam Type--</option>
+            <option value="regular">Regular</option>
+            <option value="supply">Supplymentry</option>
+            <option value="improvement">Improvment</option>
+            <option value="revaluation">Revaluation</option>
+            <option value="scrutiny">Scrutiny</option>
+          </select>
+        </label><br/>
+
+        <label>
+          Branch:
+          <select
+          name="branch"
+          value={formData.branch}
+          onChange={handleChange}>
+            <option value="">--Select Branch--</option>
+            <option value="eee">Electrical</option>
+            <option value="ec">Electronics</option>
+            <option value="ce">Civil</option>
+            <option value="cs">Computer Science</option>
+          </select>
+        </label><br/>
+
+        <label>
+          Semester:
+          <select
+          name="semester"
+          value={formData.semester}
+          onChange={handleChange}>
+            <option value="">--Select Semester--</option>
+            <option value="first">S1</option>
+            <option value="second">S2</option>
+            <option value="third">S3</option>
+            <option value="fourth">S4</option>
+            <option value="fifth">S5</option>
+            <option value="sixth">S6</option>
+            <option value="seventh">S7</option>
+            <option value="eighth">S8</option>
+          </select>
+        </label><br/>
+
+        <label>
          Name:
           <input
             type="text"
             name="name"
-            value={formData.fullName}
+            value={formData.name}
             onChange={handleChange}
           />
         </label>
@@ -116,7 +191,7 @@ function Payment() {
           Admn No:
           <input
             type="text"
-            name="admnNo"
+            name="admissionName"
             value={formData.admnNo}
             onChange={handleChange}
           />
@@ -128,7 +203,7 @@ function Payment() {
           Academic Year:
           <input
           type="text"
-          name="acdmYr"
+          name="academicYear"
           value={formData.acdmYr}
           onChange={handleChange}
           />
@@ -183,7 +258,7 @@ function Payment() {
           Name:
           <input
           type="text"
-          name="fName"
+          name="fullName"
           value={formData.fullName}
           onChange={handleChange}
           />
@@ -194,7 +269,7 @@ function Payment() {
           Date of Birth:
           <input
           type="date"
-          name="dob"
+          name="dateOfBirth"
           value={formData.dob}
           onChange={handleChange}
           />
@@ -216,17 +291,24 @@ function Payment() {
           Mobile:
           <input
           type="tel"
-          name="mob"
+          name="mobile"
           value={formData.mobile}
           onChange={handleChange}
           />
         </label>
         <br/>
 
+        <div>
+          <List header="UPI" values={optionOne}/>
+          <List header="Online Banking" values={optionTwo}/>
+          <List header="Debit Card" values={optionThree}/>
+          <List header="Credit Card" values={optionFour}/>
+        </div>
+
         <label>
           <input
           type="checkbox"
-          name="checkbox"
+          name="checkBox"
           checked={formData.checkbox}
           onChange={handleChange}
           required
@@ -237,13 +319,15 @@ function Payment() {
 
 <button type="submit">Submit</button>
         {savedId && <p>Form Data: {savedId}</p>}
-        <button onClick={handleViewClick} disabled={!savedId} id="view">View Data</button>
-       {data.length > 0 && (
+        <button onClick={handleViewClick} id="view">View Data</button>
+       {Object.entries(data).length> 0 && (
        <div>
         <h2>Fetched Data:</h2>
         <ul>
-          {data.map(item => (
-            <li key={item.id}>{item.fetchedData}</li>
+          {Object.entries(data).map(item => (
+            // <li key={item[0]}>{item.fetchedData}</li>
+            <li key={item[0]}>{JSON.stringify(item, null, 2)}</li>
+            // <li key={key}><label>{key}</label> : <span>{value}</span></li>
           ))}
         </ul>
       </div>

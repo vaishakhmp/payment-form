@@ -1,0 +1,30 @@
+.List{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.subjects{
+    max-width: 350px;
+    border: 5px solid rgb(39, 37, 37);
+    border-radius: 10px;
+    background:  rgb(48, 48, 172);
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 10px;
+    padding: auto;
+    color: rgb(227, 230, 233);
+}
+
+h1{
+    padding-left: 70px;
+}
+    
+h2 {
+    padding-left: 100px;
+}
+    
+ul {
+    padding-left: 100px;
+}
